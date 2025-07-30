@@ -5,10 +5,10 @@
 #' @importFrom patchwork          wrap_plots
 NULL
 
-#' Plot meta-analysis differential expression for a gene
+#' Plot meta-analysis differential expression for a gene between responders (Red) and non-responders (Blue).
 #'
 #' Visualizes log-fold changes and confidence intervals for a specified gene
-#' across studies within a chosen tumor type.
+#' across studies or within a chosen tumor type.
 #'
 #' @param gene character; gene symbol or ID to visualize.
 #' @param Type character; one of \code{"Pan-cancer"}, \code{"Melanoma"}, \code{"Renal"}, or \code{"Urothelial"}.
@@ -113,7 +113,7 @@ showDEG = function (gene, Type = "Pan-cancer")
 
 #' Plot pathway enrichment results
 #'
-#' Generates enrichment forestplots for specified pathways, or automatically
+#' Generates enrichment results for specified pathways between responders (Red) and non-responders (Blue), or automatically
 #' selects the top \code{Top} pathways if \code{Pathway = NULL}.
 #'
 #' @param Pathway character vector of pathway names; if \code{NULL}, uses \code{Top}.

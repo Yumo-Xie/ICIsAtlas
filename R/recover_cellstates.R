@@ -1,6 +1,6 @@
 #' Recover cell‐states and FavTME from bulk expression
 #'
-#' Runs the EcoTyper pipeline on a gene-by-sample expression matrix, returning both
+#' Runs the EcoTyper pipeline on a expression matrix, returning both
 #' cell-state abundances and a composite tumor-microenvironment favorability score.
 #'
 #' @param expr Numeric matrix or data.frame; genes in rows and samples in columns.
@@ -29,7 +29,6 @@ recover_cellstates <- function(expr,
                              ) {
   expr_type <- match.arg(expr_type)
 
-  # ─── 1) Prepare expression file ────────────────────────────────────────────────
 
   if(expr_type == "counts"){
     expr = cal_rpkm(expr)
@@ -46,7 +45,6 @@ recover_cellstates <- function(expr,
     stop("`expr` must be a matrix/data.frame.")
   }
 
-  # ─── 2) Locate and verify Rscript ─────────────────────────────────────────────
   if (.Platform$OS.type == "windows") {
     rscript <- normalizePath(file.path(R.home("bin"), "Rscript.exe"),
                              winslash = "/", mustWork = TRUE)
@@ -55,7 +53,7 @@ recover_cellstates <- function(expr,
     if (!nzchar(rscript)) stop("`Rscript` not found on PATH.")
   }
 
-  # ─── 3) Build & quote argument vector ────────────────────────────────────────
+
   script_name <- "EcoTyper_recovery_bulk.R"
   args <- c(
     script_name,
@@ -67,7 +65,7 @@ recover_cellstates <- function(expr,
 
     args <- shQuote(args, type = if (.Platform$OS.type=="windows") "cmd" else "sh")
 
-  # ─── 4) Run inside the Ecotyper directory ─────────────────────────────────────
+
   old_wd <- getwd()
   on.exit(setwd(old_wd), add = TRUE)
   setwd(ecotyper_dir)
@@ -80,7 +78,6 @@ recover_cellstates <- function(expr,
     stop("EcoTyper pipeline failed (exit code ", status, "). See logs above.")
   }
 
-  # ─── 5) Parse outputs back into R ────────────────────────────────────────────
 
   key_dir = file.path("./EcoTyper", "Carcinoma", "Carcinoma_Fractions", "Analysis", "rank_selection")
   states_dir = file.path(outdir,"expression_input")

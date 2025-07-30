@@ -8,7 +8,7 @@ NULL
 
 #' Plot Kaplan–Meier survival curves
 #'
-#' Generates KM curves (and risk tables) stratified by a chosen metric,
+#' KM curves (and risk tables) stratified by a chosen metric,
 #' either per-study or pooled across all samples.
 #'
 #' @param survival character; outcome, either \code{"OS"} or \code{"PFS"}.
