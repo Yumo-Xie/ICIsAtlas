@@ -10,8 +10,9 @@ Description: ICIsAtlas provides functions to show differentially expressed genes
     including Kaplan–Meier survival curves stratified by cell states or TME metrics.
 License: GPL (>= 3)
 Encoding: UTF-8
+RoxygenNote: 7.3.2
 LazyData: true
-RoxygenNote: 7.2.3
+LazyDataCompression: xz
 Imports:
     AnnotationDbi,
     crayon,

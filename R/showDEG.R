@@ -27,6 +27,9 @@ showDEG = function (gene, Type = "Pan-cancer")
   foldchangecol="logFC"
   llcol="CI.L"
   rlcol="CI.R"
+  if (!exists("DEG_meta", inherits = TRUE)) {
+    download_DEG_meta()
+  }
   if(Type == "Pan-cancer"){
     meta = DEG_meta[[1]]
   }else if(Type == "Melanoma"){
@@ -101,12 +104,16 @@ showDEG = function (gene, Type = "Pan-cancer")
                                                linetype = "dashed", size = 0.1, color = sumcol) + theme(legend.position = "none") +
     scale_y_continuous(limits = c(minlim, maxlim)) + coord_flip()
 
-  return(gg)
+
+  if (!exists("DEG_meta", envir = .GlobalEnv)) {
+    return(DEG_meta)
+  }
+   return(gg)
 }
 
 #' Plot pathway enrichment results
 #'
-#' Generates enrichment barplots for specified pathways, or automatically
+#' Generates enrichment forestplots for specified pathways, or automatically
 #' selects the top \code{Top} pathways if \code{Pathway = NULL}.
 #'
 #' @param Pathway character vector of pathway names; if \code{NULL}, uses \code{Top}.
