@@ -1,0 +1,4 @@
+"ID"	"State"	"InitialState"
+"CAF09_8"	"CAF09_8"	"S01"	"IS01"
+"CAF07_2"	"CAF07_2"	"S03"	"IS05"
+"CAF07_7"	"CAF07_7"	"S03"	"IS05"

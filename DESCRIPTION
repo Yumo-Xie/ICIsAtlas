@@ -30,6 +30,21 @@ Imports:
     TxDb.Hsapiens.UCSC.hg19.knownGene,
     org.Hs.eg.db,
     rappdirs
+    argparse
+    ComplexHeatmap,
+    NMF,
+    RColorBrewer,
+    cluster,
+    circlize,
+    cowplot,
+    data.table,
+    doParallel,
+    reshape2,
+    viridis,
+    config,
+    colorspace,
+    plyr,
+    Biobase
 Depends: 
     R (>= 2.10)
 URL: https://github.com/Yumo-Xie/ICIsAtlas

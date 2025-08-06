@@ -7,9 +7,9 @@
 recover_cellstates(
   expr,
   expr_type = c("array", "counts", "FPKM", "TPM"),
-  threads = 4,
+  threads = 1,
   outdir = tempdir(),
-  ecotyper_dir = "/data/morris/ICIsAtlas/inst/extdata/ecotyper"
+  ecotyper_dir = system.file("extdata/ecotyper", package = "ICIsAtlas")
 )
 }
 \arguments{
@@ -17,7 +17,7 @@ recover_cellstates(
 
 \item{expr_type}{Character; one of \code{"array"}, \code{"counts"}, \code{"FPKM"}, or \code{"TPM"} (default: \code{"array"}).}
 
-\item{threads}{Integer; number of parallel threads to use (default: \code{4}).}
+\item{threads}{Integer; number of parallel threads to use (default: \code{1}).}
 
 \item{outdir}{Character; path to the output directory (default: \code{tempdir()}).}
 

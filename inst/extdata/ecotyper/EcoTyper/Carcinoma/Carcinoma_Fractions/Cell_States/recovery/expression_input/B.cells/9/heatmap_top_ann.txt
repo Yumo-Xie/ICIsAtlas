@@ -1,0 +1,7 @@
+"ID"	"State"	"InitialState"
+"CAF07_5"	"CAF07_5"	"S02"	"IS09"
+"CAF07_6"	"CAF07_6"	"S03"	"IS04"
+"CAF09_1"	"CAF09_1"	"S03"	"IS04"
+"CAF09_6"	"CAF09_6"	"S03"	"IS04"
+"CAF07_1"	"CAF07_1"	"S04"	"IS02"
+"CAF07_7"	"CAF07_7"	"S04"	"IS02"

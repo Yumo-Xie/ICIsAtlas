@@ -5,7 +5,7 @@
 #'
 #' @param expr Numeric matrix or data.frame; genes in rows and samples in columns.
 #' @param expr_type Character; one of \code{"array"}, \code{"counts"}, \code{"FPKM"}, or \code{"TPM"} (default: \code{"array"}).
-#' @param threads Integer; number of parallel threads to use (default: \code{4}).
+#' @param threads Integer; number of parallel threads to use (default: \code{1}).
 #' @param outdir Character; path to the output directory (default: \code{tempdir()}).
 #' @param ecotyper_dir Character; path to the directory containing EcoTyper scripts.
 #' @return A \code{list} with components \code{FavTME} (favorability score) and
@@ -23,9 +23,9 @@
 #' @export
 recover_cellstates <- function(expr,
                              expr_type    = c("array", "counts", "FPKM", "TPM"),
-                             threads      = 4,
+                             threads      = 1,
                              outdir       = tempdir(),
-                             ecotyper_dir = "/data/morris/ICIsAtlas/inst/extdata/ecotyper"  #system.file("extdata/ecotyper", package = "ICIsAtlas")
+                             ecotyper_dir = system.file("extdata/ecotyper", package = "ICIsAtlas")
                              ) {
   expr_type <- match.arg(expr_type)
 
@@ -40,7 +40,6 @@ recover_cellstates <- function(expr,
   if (is.matrix(expr) || is.data.frame(expr)) {
     expr_file <- file.path(outdir, "expression_input.txt")
     write.table(expr, expr_file, sep = "\t", quote = FALSE, row.names  = F)
-    expr_file
   } else {
     stop("`expr` must be a matrix/data.frame.")
   }

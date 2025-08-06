@@ -9,9 +9,9 @@ NULL
 #' @noRd
 cal_rpkm = function(expr){
   ex <- exonsBy(TxDb.Hsapiens.UCSC.hg19.knownGene, by="gene")
-  gene_length <- sum(width(reduce(ex)))
-  gene_length <- as.numeric(gene_length)
-  names(gene_length) <- names(ex)
+  gene.length <- sum(width(reduce(ex)))
+  gene.length <- as.numeric(gene.length)
+  names(gene.length) <- names(ex)
   symbols <- rownames(expr)
   map_df <- AnnotationDbi::select(
     org.Hs.eg.db,
@@ -20,8 +20,9 @@ cal_rpkm = function(expr){
     columns = c("ENTREZID")
   )
   map_df <- map_df[!is.na(map_df$ENTREZID), ]
-  map_df$Length <- gene_length[map_df$ENTREZID]
+  map_df$Length <- gene.length[map_df$ENTREZID]
   map_df <- map_df[ !duplicated(map_df$SYMBOL), ]
+  map_df <- map_df[ !is.na(map_df$Length), ]
   names(gene.length) <- map_df$SYMBOL
   gene.length <- gene.length[symbols]
 
