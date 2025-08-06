@@ -14,6 +14,5 @@ user-specific cache directory via rappdirs.}
 The DEG_meta object as a data.frame or tibble (whatever is inside the .rda).
 }
 \description{
-This function checks for a cached copy of DEG_meta.rda, downloads it from the
-GitHub release if missing, and returns the DEG_meta object.
+Download and load the DEG_meta dataset
 }

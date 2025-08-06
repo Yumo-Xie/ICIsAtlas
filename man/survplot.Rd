@@ -27,7 +27,7 @@ survplot(
 Returns plots.
 }
 \description{
-Generates KM curves (and risk tables) stratified by a chosen metric,
+KM curves (and risk tables) stratified by a chosen metric,
 either per-study or pooled across all samples.
 }
 \examples{

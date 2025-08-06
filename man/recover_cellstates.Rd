@@ -28,7 +28,7 @@ A \code{list} with components \code{FavTME} (favorability score) and
   \code{CellStates} (cell-state abundance table).
 }
 \description{
-Runs the EcoTyper pipeline on a gene-by-sample expression matrix, returning both
+Runs the EcoTyper pipeline on a expression matrix, returning both
 cell-state abundances and a composite tumor-microenvironment favorability score.
 }
 \examples{

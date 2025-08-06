@@ -19,7 +19,7 @@ showDEP(Pathway = NULL, Top = 5, Type = "Pan-cancer", stack = F)
 If \code{stack = TRUE}, returns a \pkg{patchwork} object; else invisibly \code{NULL}.
 }
 \description{
-Generates enrichment forestplots for specified pathways, or automatically
+Generates enrichment results for specified pathways between responders (Red) and non-responders (Blue), or automatically
 selects the top \code{Top} pathways if \code{Pathway = NULL}.
 }
 \examples{

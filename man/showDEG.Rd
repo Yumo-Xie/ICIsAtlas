@@ -2,7 +2,7 @@
 % Please edit documentation in R/showDEG.R
 \name{showDEG}
 \alias{showDEG}
-\title{Plot meta-analysis differential expression for a gene}
+\title{Plot meta-analysis differential expression for a gene between responders (Red) and non-responders (Blue).}
 \usage{
 showDEG(gene, Type = "Pan-cancer")
 }
@@ -16,7 +16,7 @@ Invisibly returns a \pkg{ggplot2} object; also prints the plot.
 }
 \description{
 Visualizes log-fold changes and confidence intervals for a specified gene
-across studies within a chosen tumor type.
+across studies or within a chosen tumor type.
 }
 \examples{
 \dontrun{

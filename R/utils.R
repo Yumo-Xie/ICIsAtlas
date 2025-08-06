@@ -8,7 +8,7 @@ NULL
 #' @keywords internal
 #' @noRd
 cal_rpkm = function(expr){
-  ex <- exonsBy(tbdx, by="gene")
+  ex <- exonsBy(TxDb.Hsapiens.UCSC.hg19.knownGene, by="gene")
   gene_length <- sum(width(reduce(ex)))
   gene_length <- as.numeric(gene_length)
   names(gene_length) <- names(ex)
