@@ -29,8 +29,8 @@ Imports:
     survminer,
     TxDb.Hsapiens.UCSC.hg19.knownGene,
     org.Hs.eg.db,
-    rappdirs
-    argparse
+    rappdirs,
+    argparse,
     ComplexHeatmap,
     NMF,
     RColorBrewer,
