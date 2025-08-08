@@ -1,8 +1,0 @@
-"ID"	"State"	"InitialState"
-"Pt20.baseline"	"S01"	"IS05"
-"Pt38.baseline"	"S02"	"IS06"
-"Pt2.baseline"	"S03"	"IS07"
-"Pt32.baseline"	"S05"	"IS14"
-"Pt4.baseline"	"S06"	"IS01"
-"Pt6.baseline"	"S06"	"IS01"
-"Pt27B.baseline"	"S06"	"IS01"
