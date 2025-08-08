@@ -7,7 +7,7 @@ source("lib/scRNA.R")
 source("lib/ecotyper.R")
 })
 
-args = commandArgs(T) 
+args = commandArgs(T)
 dataset = args[1]
 fractions = args[2]
 cell_type = args[3]
@@ -27,9 +27,9 @@ if(is.na(top_cols[1]))
 
 cat(paste0("Running cell state recovery on: ", cell_type, "...\n"))
 
-states_dir = file.path("../EcoTyper", dataset, fractions, "Cell_States", "discovery", cell_type, n_states) 
-output_dir = file.path("../EcoTyper", dataset, fractions, "Cell_States", "recovery", new_dataset, cell_type, n_states) 
-dir.create(output_dir, recursive = T, showWarning = F) 
+states_dir = file.path("../EcoTyper", dataset, fractions, "Cell_States", "discovery", cell_type, n_states)
+output_dir = file.path("../EcoTyper", dataset, fractions, "Cell_States", "recovery", new_dataset, cell_type, n_states)
+dir.create(output_dir, recursive = T, showWarning = F)
 
 W = read.delim(file.path(states_dir, "W.txt"))
 mapping = read.delim(file.path(states_dir, "mapping_to_initial_states.txt"))
@@ -62,7 +62,7 @@ data[is.na(data)] = 0
 
 write.table(data, file.path(output_dir, "expression_matrix_scaled.txt"), sep = "\t")
 
-nmf_reference <- NMFpredict(W, data) 
+nmf_reference <- NMFpredict(W, data)
 save(nmf_reference, file = file.path(file.path(output_dir, "nmf.RData")))
 
 H = nmf_reference@fit@H
@@ -115,56 +115,56 @@ if(is.null(scRNA_plot_data) || nrow(scRNA_plot_data) == 0 || ncol(scRNA_plot_dat
 	stop(paste("No samples were assigned to cell states for cell type:", cell_type))
 }
 
-suppressWarnings({
-p <- heatmap_simple(discovery_data, top_annotation = discovery_annotation, 
-	top_columns = unique(c(top_cols[top_cols %in% colnames(discovery_annotation)], "State")), 
-	column_title = "Discovery dataset\n",
-	name = "hmap1", dataset = dataset,
-scale_rows = T, width = unit(3, "in"), height = unit(3, "in"),
-raster_quality = 7, legend_name = "Relative expression",
-color_palette = color_palette, show_annotation_name = F,
-color_range = 2 * seq(-1, 1, length.out = length(color_palette) - 1))
+# suppressWarnings({
+# p <- heatmap_simple(discovery_data, top_annotation = discovery_annotation,
+# 	top_columns = unique(c(top_cols[top_cols %in% colnames(discovery_annotation)], "State")),
+# 	column_title = "Discovery dataset\n",
+# 	name = "hmap1", dataset = dataset,
+# scale_rows = T, width = unit(3, "in"), height = unit(3, "in"),
+# raster_quality = 7, legend_name = "Relative expression",
+# color_palette = color_palette, show_annotation_name = F,
+# color_range = 2 * seq(-1, 1, length.out = length(color_palette) - 1))
 
-q <- heatmap_simple(scRNA_plot_data, top_annotation = assignment, 
-	top_columns = unique(c(top_cols[top_cols %in% colnames(assignment)], "State")),
-	column_title = paste0("Bulk samples assigned to cell states\nn = ", nrow(assignment), " (", format(nrow(assignment) * 100 / ncol(H), digits = 2), "%)"),
-	name = "hmap2", dataset = dataset,
-scale_rows = T, width = unit(3, "in"), height = unit(3, "in"),
-raster_quality = 7, legend_name = "Relative expression",
-color_palette = color_palette,
-color_range = 2 * seq(-1, 1, length.out = length(color_palette) - 1))
-})
+# q <- heatmap_simple(scRNA_plot_data, top_annotation = assignment,
+# 	top_columns = unique(c(top_cols[top_cols %in% colnames(assignment)], "State")),
+# 	column_title = paste0("Bulk samples assigned to cell states\nn = ", nrow(assignment), " (", format(nrow(assignment) * 100 / ncol(H), digits = 2), "%)"),
+# 	name = "hmap2", dataset = dataset,
+# scale_rows = T, width = unit(3, "in"), height = unit(3, "in"),
+# raster_quality = 7, legend_name = "Relative expression",
+# color_palette = color_palette,
+# color_range = 2 * seq(-1, 1, length.out = length(color_palette) - 1))
+# })
 
-pdf(file.path(output_dir, "state_assignment_heatmap.pdf"), width = 9, height = 6)
-suppressWarnings({
-	draw(top_markers_left(scRNA_plot_data, 5, gene_info, "State") + p +  q, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", merge_legends = F)
-})
-
-rect = rectangle_annotation_coordinates(gene_info$State, discovery_annotation$State)
-rect2 = rectangle_annotation_coordinates(gene_info$State, assignment$State)
- 
-decorate_heatmap_body("hmap1", {
-    grid.rect(x = unit(rect$x, "native"), y = unit(rect$y, "native"), width = unit(rect$w, "native"), height = unit(rect$h, "native"), hjust = 0, vjust = 1, gp = gpar(col = "white", lty = 1, lwd = 1))
-})
-decorate_heatmap_body("hmap2", {
-    grid.rect(x = unit(rect2$x, "native"), y = unit(rect2$y, "native"), width = unit(rect2$w, "native"), height = unit(rect2$h, "native"), hjust = 0, vjust = 1, gp = gpar(col = "white", lty = 1, lwd = 1))
-})
-
-tmp = dev.off()
-
-png(file.path(output_dir, "state_assignment_heatmap.png"), width = 9, height = 6, units = "in", res = 200)
-suppressWarnings({
-	draw(top_markers_left(scRNA_plot_data, 5, gene_info, "State") + p +  q, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", merge_legends = F)
-})
-
-decorate_heatmap_body("hmap1", {
-    grid.rect(x = unit(rect$x, "native"), y = unit(rect$y, "native"), width = unit(rect$w, "native"), height = unit(rect$h, "native"), hjust = 0, vjust = 1, gp = gpar(col = "white", fill = NA, lty = 1, lwd = 1))
-})
-decorate_heatmap_body("hmap2", {
-    grid.rect(x = unit(rect2$x, "native"), y = unit(rect2$y, "native"), width = unit(rect2$w, "native"), height = unit(rect2$h, "native"), hjust = 0, vjust = 1, gp = gpar(col = "white", fill = NA, lty = 1, lwd = 1))
-})
-
-tmp = dev.off()
+# pdf(file.path(output_dir, "state_assignment_heatmap.pdf"), width = 9, height = 6)
+# suppressWarnings({
+# 	draw(top_markers_left(scRNA_plot_data, 5, gene_info, "State") + p +  q, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", merge_legends = F)
+# })
+#
+# rect = rectangle_annotation_coordinates(gene_info$State, discovery_annotation$State)
+# rect2 = rectangle_annotation_coordinates(gene_info$State, assignment$State)
+#
+# decorate_heatmap_body("hmap1", {
+#     grid.rect(x = unit(rect$x, "native"), y = unit(rect$y, "native"), width = unit(rect$w, "native"), height = unit(rect$h, "native"), hjust = 0, vjust = 1, gp = gpar(col = "white", lty = 1, lwd = 1))
+# })
+# decorate_heatmap_body("hmap2", {
+#     grid.rect(x = unit(rect2$x, "native"), y = unit(rect2$y, "native"), width = unit(rect2$w, "native"), height = unit(rect2$h, "native"), hjust = 0, vjust = 1, gp = gpar(col = "white", lty = 1, lwd = 1))
+# })
+#
+# tmp = dev.off()
+#
+# png(file.path(output_dir, "state_assignment_heatmap.png"), width = 9, height = 6, units = "in", res = 200)
+# suppressWarnings({
+# 	draw(top_markers_left(scRNA_plot_data, 5, gene_info, "State") + p +  q, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", merge_legends = F)
+# })
+#
+# decorate_heatmap_body("hmap1", {
+#     grid.rect(x = unit(rect$x, "native"), y = unit(rect$y, "native"), width = unit(rect$w, "native"), height = unit(rect$h, "native"), hjust = 0, vjust = 1, gp = gpar(col = "white", fill = NA, lty = 1, lwd = 1))
+# })
+# decorate_heatmap_body("hmap2", {
+#     grid.rect(x = unit(rect2$x, "native"), y = unit(rect2$y, "native"), width = unit(rect2$w, "native"), height = unit(rect2$h, "native"), hjust = 0, vjust = 1, gp = gpar(col = "white", fill = NA, lty = 1, lwd = 1))
+# })
+#
+# tmp = dev.off()
 
 write.table(scRNA_plot_data, file.path(output_dir, "heatmap_data.txt"), sep = "\t")
 write.table(assignment, file.path(output_dir, "heatmap_top_ann.txt"), sep = "\t")
