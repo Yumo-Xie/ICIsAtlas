@@ -119,6 +119,6 @@ meta_degs_rem = rem_mv(diffexp=metalist,
 
 result=meta_degs_rem@metaresult
 result=result[result$randomP < 0.05,]
-result=result[result$signcon > 4 | result$signcon < -4,] 
+result=result[result$signcon > 8 | result$signcon < -8,] 
 result=result[order(result$randomSummary,decreasing = T),]
 
