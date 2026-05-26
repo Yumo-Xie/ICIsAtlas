@@ -1,7 +1,8 @@
 
 # ICIsAtlas
 
-ICIsAtlas was published on Communications Biology 
+ICIsAtlas was published on *Communications Biology*.
+
 Xie Y, Lin J, Liu H, et al. ICIsAtlas reveals a suppressive NK cell niche in pan-cancer immunotherapy profiles, 2026
 https://www.nature.com/articles/s42003-026-10336-3
 
